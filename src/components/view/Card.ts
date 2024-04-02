@@ -19,9 +19,9 @@ export class Card extends Component<IProductItem> {
 		this._image = ensureElement<HTMLImageElement>(`.card__image`, container);
 		this._title = ensureElement<HTMLElement>(`.card__title`, container);
 		this._category = ensureElement<HTMLElement>(`.card__category`, container);
-		for (let value in settings) {
+		for (let value in settings.category) {
 			this._category.classList.remove(
-				'card__category_' + String(settings[value as keyof Object])
+				'card__category_' + String(settings.category[value as keyof Object])
 			);
 		}
 		this._price = ensureElement<HTMLElement>(`.card__price`, container);
@@ -39,7 +39,7 @@ export class Card extends Component<IProductItem> {
 	set category(value: string) {
 		this.setText(this._category, value);
 		this._category.classList.add(
-			'card__category_' + String(settings[value as keyof Object])
+			'card__category_' + String(settings.category[value as keyof Object])
 		);
 	}
 	set price(value: number | null) {
