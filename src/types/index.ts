@@ -3,6 +3,11 @@ export interface IApp {
 	cart: string[];
 }
 
+export type ApiListResponse<Type> = {
+    total: number,
+    items: Type[]
+};
+
 export type IProduct = IProductItem & ICartStatus;
 
 export interface IProductItem {
