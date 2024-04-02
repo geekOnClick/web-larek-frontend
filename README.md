@@ -11,7 +11,7 @@
 - src/pages/index.html — HTML-файл главной страницы
 - src/types/index.ts — файл с типами
 - src/index.ts — точка входа приложения
-- src/styles/styles.scss — корневой файл стилей
+- src/scss/styles.scss — корневой файл стилей
 - src/utils/constants.ts — файл с константами
 - src/utils/utils.ts — файл с утилитами
 
@@ -57,7 +57,7 @@ yarn build
 - trigger(eventName: string, context?: Partial<T>): (data: T) => void - создает коллбек-триггер, генерирующий событие при вызове.
 
 2. class Api:
-Класс Api представляет собой обертку для выполнения HTTP-запросов к API. Он содержит методы для отправки GET и POST запросов.
+Класс Api представляет собой обертку для выполнения HTTP-запросов к API. Он содержит методы для отправки запросов.
 
 ### Свойства:
 - baseUrl: строка - базовый URL для отправки запросов
@@ -67,7 +67,8 @@ yarn build
 - constructor(baseUrl: string, options: RequestInit = {}): конструктор класса, принимает базовый URL и опции запроса
 - handleResponse(response: Response): Promise<object>: метод для обработки ответа от сервера
 - get(uri: string): метод для отправки GET запроса по указанному URI
-- post(uri: string, data: object, method: ApiPostMethods = 'POST'): метод для отправки POST запроса с данными по указанному URI
+- post(uri: string, data: object, method: ApiPostMethods = 'POST'): метод для отправки POST запроса с данными по указанному URI (на данный момент по умолчанию)
+Также в дальнейшем планируется добавление методов put, delete.
 
 ### Типы:
 - ApiListResponse<Type>: тип для представления ответа от API, содержащий общее количество элементов и массив элементов указанного типа
@@ -307,3 +308,20 @@ yarn build
 	id: string;
 	total: number;
 }
+
+## Описание событий:
+
+'catalog:updated': событие обновления каталога
+'card:select': событие выбора карточки
+'cardModal:open': событие открытия модального окна карточки
+'cart:open': событие открытия корзины
+'cart:updated': событие обновления корзины
+'cartItem:add': событие добавления товара в корзину
+'cartItem:delete': событие удалить товар из корзины
+'cartItem:select': событие выбора товара
+'details:open': событие открытия окна формы подробностей заказа
+'details:submit': событие подтверждения формы подробностей заказа
+'contacts:submit': событие подтверждения формы контактов
+'paymentMethod:change': событие выбора методы оплаты
+/^details\.|^contacts\..*:change/: событие изменения полей формы
+'formErrors:change': событие ошибки заполнения формы
