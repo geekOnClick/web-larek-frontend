@@ -37,17 +37,14 @@ export class Card extends Component<IProductItem> {
 		this.setImage(this._image, value, 'Картинка товара: ' + this.title);
 	}
 	set category(value: string) {
-        const category = findKeyByValue(settings.category, value)
+		const category = findKeyByValue(settings.category, value);
 		this.setText(this._category, value);
-		this._category.classList.add(
-			'card__category_' + category
-		);
+		this._category.classList.add('card__category_' + category);
 	}
 	set price(value: number | null) {
-		if (value === null){
+		if (value === null) {
 			this.setText(this._price, 'Бесценно');
-		}
-		else{
+		} else {
 			this.setText(this._price, value + ' синапсов');
 		}
 	}

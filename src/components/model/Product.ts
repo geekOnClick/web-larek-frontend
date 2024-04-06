@@ -1,7 +1,4 @@
-import {
-	IProduct,
-	STATUS,
-} from '../../types';
+import { IProduct, STATUS } from '../../types';
 import { IEvents } from '../base/Events';
 
 export class Product<T> implements IProduct {
@@ -15,7 +12,7 @@ export class Product<T> implements IProduct {
 
 	constructor(data: Partial<T>, protected events: IEvents) {
 		Object.assign(this, data);
-		this.cartStatus = STATUS.NOT_IN_CART; 
+		this.cartStatus = STATUS.NOT_IN_CART;
 		if (this.price === null) {
 			this.cartStatus = STATUS.NO_PRICE;
 		}

@@ -12,10 +12,12 @@ export class Form<T> extends Component<IFormState> {
 	protected _submit: HTMLButtonElement;
 	protected _errors: HTMLElement;
 
-
-	constructor(protected container: HTMLFormElement, protected events: IEvents) {  
+	constructor(protected container: HTMLFormElement, protected events: IEvents) {
 		super(container);
-		this._submit = ensureElement<HTMLButtonElement>('button[type=submit]',this.container);
+		this._submit = ensureElement<HTMLButtonElement>(
+			'button[type=submit]',
+			this.container
+		);
 		this._errors = ensureElement<HTMLElement>('.form__errors', this.container);
 		this.container.addEventListener('input', (event: Event) => {
 			const target = event.target as HTMLInputElement;
@@ -58,8 +60,14 @@ export class FormDetails extends Form<IOrder> {
 
 	constructor(container: HTMLFormElement, events: IEvents) {
 		super(container, events);
-		this._onlineButton = ensureElement<HTMLButtonElement>('button[name=card]',this.container);
-		this._receivedButton = ensureElement<HTMLButtonElement>('button[name=cash]',this.container);
+		this._onlineButton = ensureElement<HTMLButtonElement>(
+			'button[name=card]',
+			this.container
+		);
+		this._receivedButton = ensureElement<HTMLButtonElement>(
+			'button[name=cash]',
+			this.container
+		);
 		this._onlineButton.addEventListener('click', () => {
 			this._onlineButton.classList.add('button_alt-active');
 			this._receivedButton.classList.remove('button_alt-active');
@@ -88,19 +96,18 @@ export class FormDetails extends Form<IOrder> {
 }
 
 export class FormContacts extends Form<IOrderForm> {
-    
 	constructor(container: HTMLFormElement, events: IEvents) {
 		super(container, events);
 	}
 
 	set phone(value: string) {
-        this.onInputChange('phone', value);
+		this.onInputChange('phone', value);
 		(this.container.elements.namedItem('phone') as HTMLInputElement).value =
 			value;
 	}
 
 	set email(value: string) {
-        this.onInputChange('email', value);
+		this.onInputChange('email', value);
 		(this.container.elements.namedItem('email') as HTMLInputElement).value =
 			value;
 	}

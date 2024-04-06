@@ -20,7 +20,7 @@ export class App<T> implements IApp {
 		address: '',
 		email: '',
 		phone: '',
-        total: 0,
+		total: 0,
 		items: [],
 	};
 	formErrors: FormErrors = {};
@@ -35,7 +35,7 @@ export class App<T> implements IApp {
 		this.catalog = items.map((item) => new Product(item, this.events));
 		this.events.emit('catalog:updated', { catalog: this.catalog });
 	}
-	
+
 	getCatalog() {
 		return this.catalog;
 	}
@@ -85,10 +85,10 @@ export class App<T> implements IApp {
 	}
 
 	clearCart() {
-        this.cart.forEach((id) =>{
-            this.deleteFromCart(id);
-        })
-    }
+		this.cart.forEach((id) => {
+			this.deleteFromCart(id);
+		});
+	}
 
 	getTotal() {
 		let cartTotal = 0;
@@ -128,12 +128,12 @@ export class App<T> implements IApp {
 
 	setOrderCart() {
 		this.order.items = this.cart;
-        this.setOrderTotal();
+		this.setOrderTotal();
 	}
 
-    setOrderTotal(){
-        this.order.total = this.getTotal();
-    }
+	setOrderTotal() {
+		this.order.total = this.getTotal();
+	}
 
 	setOrderField(field: keyof IOrderForm, value: string) {
 		this.order[field] = value;

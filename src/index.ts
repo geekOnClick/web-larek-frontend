@@ -29,7 +29,10 @@ const page = new Page(document.body, events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const cart = new Cart(cloneTemplate(cartTemplate), events);
 const orderStepDetails = new FormDetails(cloneTemplate(orderTemplate), events);
-const orderStepContacts = new FormContacts(cloneTemplate(contactsTemplate), events);
+const orderStepContacts = new FormContacts(
+	cloneTemplate(contactsTemplate),
+	events
+);
 
 events.on('catalog:updated', () => {
 	page.catalog = appData.catalog.map((item) => {
@@ -49,7 +52,11 @@ events.on('card:select', (item: Product<IProductItem>) => {
 });
 
 events.on('cardModal:open', (item: Product<IProductItem>) => {
-	const cardModal = new CardModal(cloneTemplate(cardModalTemplate),events,item.cartStatus);
+	const cardModal = new CardModal(
+		cloneTemplate(cardModalTemplate),
+		events,
+		item.cartStatus
+	);
 	modal.render({
 		content: cardModal.render({
 			title: item.title,
@@ -100,8 +107,8 @@ events.on('cartItem:delete', (state) => {
 	const id = appData.getActiveCardId();
 	appData.deleteFromCart(id);
 	cart.length = appData.getCartCount();
-    cart.total = appData.getTotal();
-	if (!state){
+	cart.total = appData.getTotal();
+	if (!state) {
 		modal.close();
 	}
 });
@@ -111,8 +118,8 @@ events.on('details:open', () => {
 		content: orderStepDetails.render({
 			payment: appData.getPaymentMethod(),
 			address: '',
-            email: '', 
-            phone: '',
+			email: '',
+			phone: '',
 			valid: false,
 			errors: [],
 		}),
@@ -129,19 +136,22 @@ events.on('details:submit', () => {
 	});
 });
 events.on('contacts:submit', () => {
-    api.order(appData.order)
-        .then((result) => {
-            appData.clearCart();
-            const success = new Notification(cloneTemplate(successTemplate), {onClick: () => modal.close()},);
-            modal.render({
-                content: success.render({
-                    total: result.total
-                })
-            });
-        })
-        .catch(err => {
-            console.error(err);
-        });
+	api
+		.order(appData.order)
+		.then((result) => {
+			appData.clearCart();
+			const success = new Notification(cloneTemplate(successTemplate), {
+				onClick: () => modal.close(),
+			});
+			modal.render({
+				content: success.render({
+					total: result.total,
+				}),
+			});
+		})
+		.catch((err) => {
+			console.error(err);
+		});
 });
 
 events.on('paymentMethod:change', (method) => {
@@ -162,11 +172,15 @@ events.on('formErrors:change', (errors: Partial<IOrderForm>) => {
 		.join('; ');
 });
 
-events.on(/^details\.|^contacts\..*:change/,(data: { field: keyof IOrderForm; value: string }) => {
-    appData.setOrderField(data.field, data.value);
-});
+events.on(
+	/^details\.|^contacts\..*:change/,
+	(data: { field: keyof IOrderForm; value: string }) => {
+		appData.setOrderField(data.field, data.value);
+	}
+);
 
-api.getProductList()
+api
+	.getProductList()
 	.then(appData.setCatalog.bind(appData))
 	.catch((error) => {
 		console.error(error);

@@ -4,8 +4,8 @@ export interface IApp {
 }
 
 export type ApiListResponse<Type> = {
-    total: number,
-    items: Type[]
+	total: number;
+	items: Type[];
 };
 
 export type IProduct = IProductItem & ICartStatus;
