@@ -13,8 +13,11 @@
   padding-bottom: 5vh;
 
   &_active {
+
     display: flex;
     min-height: 90vmin;
+    height: 100%;
+    overflow: scroll;
   }
 
   &__container {
@@ -46,6 +49,7 @@
 
   &__close {
     position: absolute;
+    overflow: hidden;
     top: calc(#{$defaultPadding} / 2);
     right: calc(#{$defaultPadding} / 2);
     @include mixins.icon(2rem, 'close');

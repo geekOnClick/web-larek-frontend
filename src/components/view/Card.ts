@@ -1,6 +1,6 @@
-import { ensureElement } from '../../utils/utils';
+import { ensureElement, findKeyByValue } from '../../utils/utils';
 import { Component } from '../base/Component';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 import { settings } from '../../utils/constants';
 import { STATUS, IProductItem } from '../../types';
 
@@ -19,9 +19,9 @@ export class Card extends Component<IProductItem> {
 		this._image = ensureElement<HTMLImageElement>(`.card__image`, container);
 		this._title = ensureElement<HTMLElement>(`.card__title`, container);
 		this._category = ensureElement<HTMLElement>(`.card__category`, container);
-		for (let value in settings.category) {
+		for (const value in settings.category) {
 			this._category.classList.remove(
-				'card__category_' + String(settings.category[value as keyof Object])
+				'card__category_' + String(settings.category[value as keyof object])
 			);
 		}
 		this._price = ensureElement<HTMLElement>(`.card__price`, container);
@@ -37,9 +37,10 @@ export class Card extends Component<IProductItem> {
 		this.setImage(this._image, value, 'Картинка товара: ' + this.title);
 	}
 	set category(value: string) {
+        const category = findKeyByValue(settings.category, value)
 		this.setText(this._category, value);
 		this._category.classList.add(
-			'card__category_' + String(settings.category[value as keyof Object])
+			'card__category_' + category
 		);
 	}
 	set price(value: number | null) {
@@ -62,8 +63,6 @@ export class CardModal extends Card {
 		this._cardButton = ensureElement<HTMLElement>(`.card__button`, container);
 		if (cartStatus === STATUS.IN_CART) {
 			this.setText(this._cardButton, 'Удалить из корзины');
-			this._cardButton.style.backgroundColor = '#9c1329';
-			this._cardButton.style.color = 'white';
 			this._cardButton.addEventListener('click', () => {
 				events.emit('cartItem:delete');
 			});

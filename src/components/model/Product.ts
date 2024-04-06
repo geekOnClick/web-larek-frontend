@@ -2,7 +2,7 @@ import {
 	IProduct,
 	STATUS,
 } from '../../types';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 
 export class Product<T> implements IProduct {
 	id: string;
@@ -11,11 +11,11 @@ export class Product<T> implements IProduct {
 	title: string;
 	category: string;
 	price: number | null;
-	cartStatus: number;
+	cartStatus: STATUS;
 
 	constructor(data: Partial<T>, protected events: IEvents) {
 		Object.assign(this, data);
-		this.cartStatus = 0;
+		this.cartStatus = STATUS.NOT_IN_CART; 
 		if (this.price === null) {
 			this.cartStatus = STATUS.NO_PRICE;
 		}

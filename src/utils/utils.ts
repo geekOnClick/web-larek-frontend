@@ -133,3 +133,12 @@ export function createElement<
     }
     return element;
 }
+
+export function findKeyByValue<T>(obj: { [key: string]: T }, value: T): string | null {
+    for (const key in obj) {
+      if (obj[key] === value) {
+        return key;
+      }
+    }
+    return null;
+  }

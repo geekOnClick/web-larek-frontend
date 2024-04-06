@@ -1,5 +1,5 @@
 import { Component } from '../base/Component';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 import { ensureElement } from '../../utils/utils';
 import { IOrder, IOrderForm, METHOD } from '../../types';
 
@@ -94,11 +94,13 @@ export class FormContacts extends Form<IOrderForm> {
 	}
 
 	set phone(value: string) {
+        this.onInputChange('phone', value);
 		(this.container.elements.namedItem('phone') as HTMLInputElement).value =
 			value;
 	}
 
 	set email(value: string) {
+        this.onInputChange('email', value);
 		(this.container.elements.namedItem('email') as HTMLInputElement).value =
 			value;
 	}

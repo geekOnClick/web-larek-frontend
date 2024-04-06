@@ -8,7 +8,7 @@ import {
 	IOrderForm,
 	METHOD,
 } from '../../types';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 import { Product } from './Product';
 
 export class App<T> implements IApp {
@@ -77,7 +77,7 @@ export class App<T> implements IApp {
 		this.events.emit('cart:updated');
 	}
 
-	deleteFromCart(id: string, action?: string) {
+	deleteFromCart(id: string) {
 		this.updateCatalog(id, 'delete');
 		this.cart = this.cart.filter((item) => item !== id);
 		this.setOrderCart();
@@ -91,7 +91,7 @@ export class App<T> implements IApp {
     }
 
 	getTotal() {
-		let cartTotal: number = 0;
+		let cartTotal = 0;
 		this.catalog.filter((item) => {
 			this.cart.forEach((id) => {
 				if (item.id === id) {

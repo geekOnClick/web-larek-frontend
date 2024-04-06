@@ -1,7 +1,7 @@
 import './scss/styles.scss';
 import { ShopAPI } from './api/ShopApi';
 import { API_URL, CDN_URL } from './utils/constants';
-import { EventEmitter } from './components/base/events';
+import { EventEmitter } from './components/base/Events';
 import { App } from './components/model/App';
 import { Product } from './components/model/Product';
 import { Page } from './components/view/Page';
@@ -111,6 +111,8 @@ events.on('details:open', () => {
 		content: orderStepDetails.render({
 			payment: appData.getPaymentMethod(),
 			address: '',
+            email: '', 
+            phone: '',
 			valid: false,
 			errors: [],
 		}),

@@ -1,4 +1,4 @@
-import { Api } from '../components/base/api';
+import { Api } from '../components/base/Api';
 import { ApiListResponse, IOrder, IOrderResult, IProductItem } from '../types';
 
 export interface IShopAPI {
